@@ -122,7 +122,8 @@ stop = 1;
 global G;
 global a b;
 
-
+NFFT = 256;
+x_fft = linspace(-18000,18000,NFFT);
 
 while ~isDone(hafr)
     
@@ -134,8 +135,10 @@ while ~isDone(hafr)
     audio_leftchannel = audio(:, 1);
     audio_rightchannel = audio(:, 2);
     
+    preAudio=abs(audio_rightchannel)+abs(audio_leftchannel);
+    
   %  axes(handles.axes2)
-    plot(handles.axes2,audio)
+    %plot(handles.axes2,audio_leftchannel)
 
     
 %     audio_leftchannelfilter = filter(b, a, audio_leftchannel);
@@ -192,8 +195,14 @@ while ~isDone(hafr)
     
     audio_mod = [audio_leftchannelfilter audio_rightchannelfilter];
     
-   % axes(handles.axes1)
-    plot(handles.axes1,audio_mod)
+    postAudio=abs(audio_leftchannelfilter)+abs(audio_rightchannelfilter);
+
+    plot(handles.axes2,[preAudio postAudio])
+    
+    AUDIO = abs(fftshift(fft([preAudio postAudio],NFFT)));
+    plot(handles.axes1,x_fft,AUDIO);
+    xlim(handles.axes1,[0 18000])
+ 
     
         
     step(hap,audio_mod);
