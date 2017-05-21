@@ -108,23 +108,35 @@ audio_file = uigetfile('*.wav;*.mp3','Pick up an audio file');
 % --- Executes on button press in play_audio.
 function play_audio_Callback(hObject, eventdata, handles)
 % Play the audio file loaded previously
-global audio_file;
+global audio_file stop;
 % [audio,Fs] = audioread(audio_file);
 % player = audioplayer(audio,Fs);
 % playblocking(player);
 
-temp=audioread(audio_file);
-num=100000000000000000;
+% temp=audioread(audio_file);
+% num=100000000000000000;
+
 hafr = dsp.AudioFileReader('Filename',audio_file,'SamplesPerFrame',1000);
 hap = dsp.AudioPlayer('SampleRate',44100);
+stop = 1;
 global G;
 global a b;
 
+
+
 while ~isDone(hafr)
     
+    if(stop==0)
+       break;
+    end     
+        
     audio = step(hafr);
     audio_leftchannel = audio(:, 1);
     audio_rightchannel = audio(:, 2);
+    
+  %  axes(handles.axes2)
+    plot(handles.axes2,audio)
+
     
 %     audio_leftchannelfilter = filter(b, a, audio_leftchannel);
 %     audio_rightchannelfilter = filter(b, a, audio_rightchannel);
@@ -180,6 +192,10 @@ while ~isDone(hafr)
     
     audio_mod = [audio_leftchannelfilter audio_rightchannelfilter];
     
+   % axes(handles.axes1)
+    plot(handles.axes1,audio_mod)
+    
+        
     step(hap,audio_mod);
     pause(0.0001);
     
@@ -232,6 +248,7 @@ for i=1:10
     H=H+10^(S(i)/20)*abs(freqz(b{i},a{i},1024));
 end
 
+axes(handles.axes3)
 plot(1e-3*Fs*[0:1023]/2048,20*log10(H))
 
 xlabel('Frequency [kHz]');
@@ -448,5 +465,3 @@ function S10_CreateFcn(hObject, eventdata, handles)
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
-
-
