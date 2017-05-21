@@ -257,7 +257,6 @@ title('Responce of Equilizer');
 grid on;
 
 
-
 % --- Executes on slider movement.
 function S1_Callback(hObject, eventdata, handles)
 
@@ -465,3 +464,12 @@ function S10_CreateFcn(hObject, eventdata, handles)
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
+
+
+% --- Executes on button press in pushbutton4.
+function pushbutton4_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton4 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global stop;
+stop=0;
