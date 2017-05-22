@@ -161,31 +161,31 @@ while ~isDone(hafr)
     [b1, a1] = shelving(tempgainvalue1, 60, 44100, sqrt(2)/2, 'Base_Shelf');
     audio_leftchannelfilter = filter(b1, a1, audio_leftchannel);
     audio_rightchannelfilter = filter(b1, a1, audio_rightchannel);
-    [b2, a2] = shelving(tempgainvalue2, 170, 44100, sqrt(2)/2, 'Base_Shelf');
+    [b2, a2] = peaking(tempgainvalue2, 170, 44100, sqrt(2)/2);
     audio_leftchannelfilter = filter(b2, a2, audio_leftchannelfilter);
     audio_rightchannelfilter = filter(b2, a2, audio_rightchannelfilter);
-    [b3, a3] = shelving(tempgainvalue3, 310, 44100, sqrt(2)/2, 'Base_Shelf');
+    [b3, a3] = peaking(tempgainvalue3, 310, 44100, sqrt(2)/2);
     audio_leftchannelfilter = filter(b3, a3, audio_leftchannelfilter);
     audio_rightchannelfilter = filter(b3, a3, audio_rightchannelfilter);
-    [b4, a4] = shelving(tempgainvalue4, 600, 44100, sqrt(2)/2, 'Base_Shelf');
+    [b4, a4] = peaking(tempgainvalue4, 600, 44100, sqrt(2)/2);
     audio_leftchannelfilter = filter(b4, a4, audio_leftchannelfilter);
     audio_rightchannelfilter = filter(b4, a4, audio_rightchannelfilter);
-    [b5, a5] = shelving(tempgainvalue5, 1000, 44100, sqrt(2)/2, 'Base_Shelf');
+    [b5, a5] = peaking(tempgainvalue5, 1000, 44100, sqrt(2)/2);
     audio_leftchannelfilter = filter(b5, a5, audio_leftchannelfilter);
     audio_rightchannelfilter = filter(b5, a5, audio_rightchannelfilter);
-    [b6, a6] = shelving(tempgainvalue6, 3000, 44100, sqrt(2)/2, 'Base_Shelf');
+    [b6, a6] = peaking(tempgainvalue6, 3000, 44100, sqrt(2)/2);
     audio_leftchannelfilter = filter(b6, a6, audio_leftchannelfilter);
     audio_rightchannelfilter = filter(b6, a6, audio_rightchannelfilter);
-    [b7, a7] = shelving(tempgainvalue7, 6000, 44100, sqrt(2)/2, 'Base_Shelf');
+    [b7, a7] = peaking(tempgainvalue7, 6000, 44100, sqrt(2)/2);
     audio_leftchannelfilter = filter(b7, a7, audio_leftchannelfilter);
     audio_rightchannelfilter = filter(b7, a7, audio_rightchannelfilter);
-    [b8, a8] = shelving(tempgainvalue8, 12000, 44100, sqrt(2)/2, 'Base_Shelf');
+    [b8, a8] = peaking(tempgainvalue8, 12000, 44100, sqrt(2)/2);
     audio_leftchannelfilter = filter(b8, a8, audio_leftchannelfilter);
     audio_rightchannelfilter = filter(b8, a8, audio_rightchannelfilter);
-    [b9, a9] = shelving(tempgainvalue9, 14000, 44100, sqrt(2)/2, 'Base_Shelf');
+    [b9, a9] = peaking(tempgainvalue9, 14000, 44100, sqrt(2)/2);
     audio_leftchannelfilter = filter(b9, a9, audio_leftchannelfilter);
     audio_rightchannelfilter = filter(b9, a9, audio_rightchannelfilter);
-    [b10, a10] = shelving(tempgainvalue10, 16000, 44100, sqrt(2)/2, 'Base_Shelf');
+    [b10, a10] = shelving(tempgainvalue10, 16000, 44100, sqrt(2)/2, 'Treble_Shelf');
     audio_leftchannelfilter = filter(b10, a10, audio_leftchannelfilter);
     audio_rightchannelfilter = filter(b10, a10, audio_rightchannelfilter);
     
@@ -202,8 +202,6 @@ while ~isDone(hafr)
     AUDIO = abs(fftshift(fft([preAudio postAudio],NFFT)));
     plot(handles.axes1,x_fft,AUDIO);
     xlim(handles.axes1,[0 18000])
- 
-    
         
     step(hap,audio_mod);
     pause(0.0001);
@@ -239,14 +237,14 @@ tempgainvalue9 = get(handles.S9, 'value');
 tempgainvalue10 = get(handles.S10, 'value');
     
 [b1, a1] = shelving(tempgainvalue1, 60, 44100, sqrt(2)/2, 'Base_Shelf');
-[b2, a2] = shelving(tempgainvalue2, 170, 44100, sqrt(2)/2, 'Base_Shelf');
-[b3, a3] = shelving(tempgainvalue3, 310, 44100, sqrt(2)/2, 'Base_Shelf');
-[b4, a4] = shelving(tempgainvalue4, 600, 44100, sqrt(2)/2, 'Base_Shelf');
-[b5, a5] = shelving(tempgainvalue5, 1000, 44100, sqrt(2)/2, 'Base_Shelf');
-[b6, a6] = shelving(tempgainvalue6, 3000, 44100, sqrt(2)/2, 'Base_Shelf');
-[b7, a7] = shelving(tempgainvalue7, 6000, 44100, sqrt(2)/2, 'Base_Shelf');
-[b8, a8] = shelving(tempgainvalue8, 12000, 44100, sqrt(2)/2, 'Base_Shelf');
-[b9, a9] = shelving(tempgainvalue9, 14000, 44100, sqrt(2)/2, 'Base_Shelf');
+[b2, a2] = peaking(tempgainvalue2, 170, 44100, sqrt(2)/2);
+[b3, a3] = peaking(tempgainvalue3, 310, 44100, sqrt(2)/2);
+[b4, a4] = peaking(tempgainvalue4, 600, 44100, sqrt(2)/2);
+[b5, a5] = peaking(tempgainvalue5, 1000, 44100,sqrt(2)/2);
+[b6, a6] = peaking(tempgainvalue6, 3000, 44100, sqrt(2)/2);
+[b7, a7] = peaking(tempgainvalue7, 6000, 44100, sqrt(2)/2);
+[b8, a8] = peaking(tempgainvalue8, 12000, 44100, sqrt(2)/2);
+[b9, a9] = peaking(tempgainvalue9, 14000, 44100, sqrt(2)/2);
 [b10, a10] = shelving(tempgainvalue10, 16000, 44100, sqrt(2)/2, 'Treble_Shelf');
 a={a1,a2,a3,a4,a5,a6,a7,a8,a9,a10};
 b={b1,b2,b3,b4,b5,b6,b7,b8,b9,b10};
